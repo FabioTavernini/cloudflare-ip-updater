@@ -7,6 +7,9 @@ if [[ -z "$TOKEN" || -z "$ZONE" || -z "$RECORD" ]]; then
     exit 1
 fi
 
+echo "Zone: $ZONE"
+echo "Record to check: $RECORD"
+
 while true; do
     # Get public IP
     PUBLIC_IP=$(curl -s https://api.ipify.org/)
