@@ -94,11 +94,20 @@ Run the script:
 bash run.sh
 ```
 
-
 ### Kubernetes
 If youd like to run the script on Kubernetes:
   - either remove the do while true loop from bash script and run it as cron-job
   - or define deployment & a secret like this:
+
+```yaml
+# namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cloudflare-ip-updater
+spec: {}
+status: {}
+```
 
 ```yaml
 # secret.yaml
@@ -111,7 +120,6 @@ data:
   TOKEN: yourtokenBase64encoded==
   ZONE: yourzoneBase64encoded==
   RECORD: yourrecordBase64encoded==
-
 ```
 
 
@@ -161,8 +169,10 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-
 ```
+
+and then apply:
+`k apply -f namsepace.yaml,env.yaml,updater-deployment.yaml`
 
 ---
 
