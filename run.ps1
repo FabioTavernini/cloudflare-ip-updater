@@ -9,12 +9,12 @@ while ($true) {
 
     #### List zones
     $Zones = Invoke-RestMethod -Method Get -Uri "https://api.cloudflare.com/client/v4/zones" -Headers $headers
-    $ZoneID = ($Zones.result | Where-Object { $_.name -eq $ENV.Zone }).id
+    $ZoneID = ($Zones.result | Where-Object { $_.name -eq $ENV.ZONE }).id
 
     #### Get DNS Records
     $DNSRecords = Invoke-RestMethod -Method Get -Uri "https://api.cloudflare.com/client/v4/zones/$ZoneID/dns_records" -Headers $headers
 
-    $DNSRecord = ($DNSRecords.result | Where-Object { $_.name -eq $ENV.record })
+    $DNSRecord = ($DNSRecords.result | Where-Object { $_.name -eq $ENV.RECORD })
 
     if ($DNSRecord.content -eq $PublicIP) {
         Write-Host "Same public IP"
